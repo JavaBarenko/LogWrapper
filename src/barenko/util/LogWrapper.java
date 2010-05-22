@@ -13,7 +13,7 @@ import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
 
-public class WrapperUtils {
+public class LogWrapper {
     private static final String FULLDATE_FORMAT_JAVA = "yyyyMMddHHmmss";
 
     /**

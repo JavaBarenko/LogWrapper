@@ -15,7 +15,7 @@ The primary objective is to log third-party classes packages, in which I have no
 What does it do?
 ----------------
 
-LogWrapper is able to wrapper a specific class, giving it the ability to log both the call of all its methods (like the parameters passed) and the return (if any).
+LogWrapper is able to wrapper a specific instance class, giving it the ability to log both the call of all its methods (like the parameters passed) and the return (if any).
 
 If the logged method throws an exception, it will also be logged, with the Stacktrace.
 
@@ -23,13 +23,13 @@ If the logged method throws an exception, it will also be logged, with the Stack
 How can I use it?
 -----------------
 
-Is very simple begin to log a Class, just do it:
+Is very simple begin to log a instance, just do it:
 
-	final ClassToTest t = WrapperUtils.enableTrace(new ClassToTest(), log, Level.INFO);
+	ClassToTest t = LogWrapper.enableTrace(new ClassToTest(), log, Level.INFO);
 
 For example, logging the ArrayList:
 
-	final List<String> myList = WrapperUtils.enableTrace(new ArrayList<String>(), log, Level.INFO);
+	List<String> myList = LogWrapper.enableTrace(new ArrayList<String>(), log, Level.INFO);
 
 	myList.add("It's a test");
 	myList.add("and another test");

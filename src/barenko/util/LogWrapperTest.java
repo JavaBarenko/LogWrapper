@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import junit.framework.TestCase;
 
-public class WrapperUtilsTest extends TestCase {
+public class LogWrapperTest extends TestCase {
 
     @SuppressWarnings("unchecked")
     public void testAddInterface() throws IllegalInterfaceImplementationException {
@@ -19,10 +19,10 @@ public class WrapperUtilsTest extends TestCase {
 	assertFalse(y instanceof Iterable);
 	assertFalse(y instanceof TestImpl);
 
-	y = WrapperUtils.addInterface(y, Test.class);
-	y = WrapperUtils.addInterface(y, TestImpl.class);
+	y = LogWrapper.addInterface(y, Test.class);
+	y = LogWrapper.addInterface(y, TestImpl.class);
 	try {
-	    y = WrapperUtils.addInterface(y, InvocationHandler.class);
+	    y = LogWrapper.addInterface(y, InvocationHandler.class);
 	    fail("deveria ter disparado exceção");
 	} catch (final IllegalInterfaceImplementationException e) {}
 
@@ -33,7 +33,7 @@ public class WrapperUtilsTest extends TestCase {
 
     public void testEnableTraceByInterfaceWithReturnInteger() {
 	final MockLog log = new MockLog(Level.INFO);
-	final Test t = WrapperUtils.enableTraceByInterface(new TestImpl(), log, Level.INFO);
+	final Test t = LogWrapper.enableTraceByInterface(new TestImpl(), log, Level.INFO);
 
 	t.getTen();
 	assertEquals("[Thread[main,5,main]] barenko.util.Test.getTen()", log.getFirstMsg());
@@ -42,7 +42,7 @@ public class WrapperUtilsTest extends TestCase {
 
     public void testEnableTraceByInterfaceWithReturnString() {
 	final MockLog log = new MockLog(Level.INFO);
-	final Test t = WrapperUtils.enableTraceByInterface(new TestImpl(), log, Level.INFO);
+	final Test t = LogWrapper.enableTraceByInterface(new TestImpl(), log, Level.INFO);
 
 	t.getValue("123");
 	assertEquals("[Thread[main,5,main]] barenko.util.Test.getValue(\"123\")", log.getFirstMsg());
@@ -51,7 +51,7 @@ public class WrapperUtilsTest extends TestCase {
 
     public void testEnableTraceByInterfaceWithReturnVarargString() {
 	final MockLog log = new MockLog(Level.INFO);
-	final Test t = WrapperUtils.enableTraceByInterface(new TestImpl(), log, Level.INFO);
+	final Test t = LogWrapper.enableTraceByInterface(new TestImpl(), log, Level.INFO);
 
 	t.getValues(123, "one", "two", "three");
 	assertEquals("[Thread[main,5,main]] barenko.util.Test.getValues(123, [\"one\", \"two\", \"three\"])", log.getFirstMsg());
@@ -60,7 +60,7 @@ public class WrapperUtilsTest extends TestCase {
 
     public void testEnableTraceByInterfaceWithReturnStringArray() {
 	final MockLog log = new MockLog(Level.INFO);
-	final Test t = WrapperUtils.enableTraceByInterface(new TestImpl(), log, Level.INFO);
+	final Test t = LogWrapper.enableTraceByInterface(new TestImpl(), log, Level.INFO);
 
 	t.getArray();
 	assertEquals("[Thread[main,5,main]] barenko.util.Test.getArray()", log.getFirstMsg());
@@ -69,7 +69,7 @@ public class WrapperUtilsTest extends TestCase {
 
     public void testEnableTraceByInterfaceWithVoidReturn() {
 	final MockLog log = new MockLog(Level.INFO);
-	final Test t = WrapperUtils.enableTraceByInterface(new TestImpl(), log, Level.INFO);
+	final Test t = LogWrapper.enableTraceByInterface(new TestImpl(), log, Level.INFO);
 
 	t.getNothing();
 	assertEquals("[Thread[main,5,main]] barenko.util.Test.getNothing()", log.getFirstMsg());
@@ -78,7 +78,7 @@ public class WrapperUtilsTest extends TestCase {
 
     public void testEnableTraceByInterfaceWithReturnNull() {
 	final MockLog log = new MockLog(Level.INFO);
-	final Test t = WrapperUtils.enableTraceByInterface(new TestImpl(), log, Level.INFO);
+	final Test t = LogWrapper.enableTraceByInterface(new TestImpl(), log, Level.INFO);
 
 	t.getNull();
 	assertEquals("[Thread[main,5,main]] barenko.util.Test.getNull()", log.getFirstMsg());
@@ -87,7 +87,7 @@ public class WrapperUtilsTest extends TestCase {
 
     public void testEnableTraceByInterfaceWithReturnThrow() {
 	final MockLog log = new MockLog(Level.INFO);
-	final Test t = WrapperUtils.enableTraceByInterface(new TestImpl(), log, Level.INFO);
+	final Test t = LogWrapper.enableTraceByInterface(new TestImpl(), log, Level.INFO);
 
 	try {
 	    t.throwsError();
@@ -100,7 +100,7 @@ public class WrapperUtilsTest extends TestCase {
 
     public void testEnableTraceWithReturnInteger() {
 	final MockLog log = new MockLog(Level.INFO);
-	final TestConcrete t = WrapperUtils.enableTrace(new TestConcrete(), log, Level.INFO);
+	final TestConcrete t = LogWrapper.enableTrace(new TestConcrete(), log, Level.INFO);
 
 	t.getTen();
 	assertEquals("[Thread[main,5,main]] barenko.util.TestConcrete.getTen()", log.getFirstMsg());
@@ -109,7 +109,7 @@ public class WrapperUtilsTest extends TestCase {
 
     public void testEnableTraceWithReturnString() {
 	final MockLog log = new MockLog(Level.INFO);
-	final TestConcrete t = WrapperUtils.enableTrace(new TestConcrete(), log, Level.INFO);
+	final TestConcrete t = LogWrapper.enableTrace(new TestConcrete(), log, Level.INFO);
 
 	t.getValue("123");
 	assertEquals("[Thread[main,5,main]] barenko.util.TestConcrete.getValue(\"123\")", log.getFirstMsg());
@@ -118,7 +118,7 @@ public class WrapperUtilsTest extends TestCase {
 
     public void testEnableTraceWithReturnVarargString() {
 	final MockLog log = new MockLog(Level.INFO);
-	final TestConcrete t = WrapperUtils.enableTrace(new TestConcrete(), log, Level.INFO);
+	final TestConcrete t = LogWrapper.enableTrace(new TestConcrete(), log, Level.INFO);
 
 	t.getValues(123, "one", "two", "three");
 	assertEquals("[Thread[main,5,main]] barenko.util.TestConcrete.getValues(123, [\"one\", \"two\", \"three\"])", log.getFirstMsg());
@@ -127,7 +127,7 @@ public class WrapperUtilsTest extends TestCase {
 
     public void testEnableTraceWithReturnStringArray() {
 	final MockLog log = new MockLog(Level.INFO);
-	final TestConcrete t = WrapperUtils.enableTrace(new TestConcrete(), log, Level.INFO);
+	final TestConcrete t = LogWrapper.enableTrace(new TestConcrete(), log, Level.INFO);
 
 	t.getArray();
 	assertEquals("[Thread[main,5,main]] barenko.util.TestConcrete.getArray()", log.getFirstMsg());
@@ -136,7 +136,7 @@ public class WrapperUtilsTest extends TestCase {
 
     public void testEnableTraceWithVoidReturn() {
 	final MockLog log = new MockLog(Level.INFO);
-	final TestConcrete t = WrapperUtils.enableTrace(new TestConcrete(), log, Level.INFO);
+	final TestConcrete t = LogWrapper.enableTrace(new TestConcrete(), log, Level.INFO);
 
 	t.getNothing();
 	assertEquals("[Thread[main,5,main]] barenko.util.TestConcrete.getNothing()", log.getFirstMsg());
@@ -145,7 +145,7 @@ public class WrapperUtilsTest extends TestCase {
 
     public void testEnableTraceWithReturnNull() {
 	final MockLog log = new MockLog(Level.INFO);
-	final TestConcrete t = WrapperUtils.enableTrace(new TestConcrete(), log, Level.INFO);
+	final TestConcrete t = LogWrapper.enableTrace(new TestConcrete(), log, Level.INFO);
 
 	t.getNull();
 	assertEquals("[Thread[main,5,main]] barenko.util.TestConcrete.getNull()", log.getFirstMsg());
@@ -154,7 +154,7 @@ public class WrapperUtilsTest extends TestCase {
 
     public void testEnableTraceWithReturnThrow() {
 	final MockLog log = new MockLog(Level.INFO);
-	final TestConcrete t = WrapperUtils.enableTrace(new TestConcrete(), log, Level.INFO);
+	final TestConcrete t = LogWrapper.enableTrace(new TestConcrete(), log, Level.INFO);
 
 	try {
 	    t.throwsError();
@@ -169,7 +169,7 @@ public class WrapperUtilsTest extends TestCase {
     public void testLoggingArrayList() throws Exception {
 	final MockLog log = new MockLog(Level.INFO);
 
-	final List<String> myList = WrapperUtils.enableTrace(new ArrayList<String>(), log, Level.INFO);
+	final List<String> myList = LogWrapper.enableTrace(new ArrayList<String>(), log, Level.INFO);
 
 	myList.add("It's a test");
 	myList.add("and another test");
